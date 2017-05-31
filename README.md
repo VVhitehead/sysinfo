@@ -1,6 +1,6 @@
 <h2>System monitor extension for Argos with real CPU graph</h2>
 
-This is a 4rk of an extension created specially for [Argos](https://github.com/p-e-w/argos) and linux-powered computers w/ GNOME shell.
+This is a fork of an extension created specially for [Argos](https://github.com/p-e-w/argos) and linux-powered computers w/ GNOME shell.
 It is based on **free**, **top**, **df** and **vmstat** output and uses power of SVG to draw charts.
 
 This specific fork has visual and other tweaks most suitable 4 arch with dark gnome theme and will probably need to be retweaked for other combinations of distros and themes.
