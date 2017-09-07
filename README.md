@@ -12,7 +12,7 @@ This specific fork has visual and other tweaks most suitable 4 arch with dark gn
 <h2>Known bugs</h2>
 
 Different configurations of **top** utility provides different output.
-You may need to open the script and replace `$7 / 4` to `$n / 4` where n is the %CPU column numbered value for the given process. Also you may need to change `head -n 19` to `head -n 15`(line 86), depending on the number of your CPU cores (2 to 4 for most CPU's). In case you don't have swap or are missing or are missing another field try `head -n 18` or `head -n 14`.
+You may need to open the script and replace `$7 / 4` to `$n / 4` where n is the %CPU column numbered value for the given process. Also you may need to change `head -n 19` to `head -n 15`(line 86), depending on the number of your CPU cores (2 to 4 for most CPU's). In case you don't have swap or are missing another field try `head -n 18` or `head -n 14`.
 
 <h2>Screenshot</h2>
 
