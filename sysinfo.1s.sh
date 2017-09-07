@@ -7,10 +7,10 @@
 # author: fadeouter (https://github.com/fadeouter/)
 
 
-# IMPORTANT! Go to line 87 and set your number of CPU cores
+# IMPORTANT! Go to line 86 and set your number of CPU cores
 
 graphWidth="50"           # CPU chart width in pixels, also a number of chart points
-scale="1"				          # if you have HIDPI screen, set appropriate coeff. for scaling
+scale="1"				          # if you have HIDPI screen, set appropriate coefsf. for scaling
 svg_font_size="9"			    # probably you won't change this
 svg_font_family="TrueType"  # set as GNOME Shell theme font
 symbolic=""
@@ -28,7 +28,6 @@ text_muted=$chart_user_color			# font color of partition mountpoint
 diskbar_font="#dbdbdb"			      # font color of disk used space
 diskbar_font_highlighted="#7eff35"	# font color of disk free space
 diskbar_bg_color=$pie_bg_color		# disk bar bg color
-
 
 ### SIZES AND POSITION OF SVG OBJECTS
 
@@ -83,9 +82,9 @@ swappie=$(echo "<svg xmlns='http://www.w3.org/2000/svg' width='$icon_h' height='
 #  02. CPU graph calculation
 ################################################################
 
-# XXX must be equal to number of CPU cores:        '...{ printf("%-4s %-s\n", $7 / XXX, $11); }...'
-top=$(top -bn 1 | grep -v "top\|Tasks\|Cpu\|KiB" | awk '{ printf("%-4s %-s\n", $7 / 4, $11); }' | head -n 7 | tail -n+5 | awk 1 ORS="\\\\n")
-top_cpu=$(echo $top | sed 's/\\n/ /g' | awk '{ print $1 + $3 + $5}')
+# XXX must be equal to number of CPU cores:          '...{ printf("%-4s %-s\n", $7 / XXX, $NF); }...'
+top=$(top -o "%CPU" -bn 1 | head -n 19 | tail -n 5 | awk '{ printf("%-4s %-s\n", $7 / 4, $NF); }' | awk 1 ORS="\\\n")
+top_cpu=$(echo $top | sed 's/\\n/ /g' | awk '{ print $1 + $3 + $5 + $7 +$9}')
 top_tasks=$(top -bn 1 | head -n 2 | tail -n+2 | awk '{ gsub(",", "") } \
  { printf("<b>%s</b> %d <i>%s</i> %d <i>%s</i> / %d <i>%s</i> %d <i>%s</i>\
  ⏤ %d <i>%s</i>", $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11); }')
@@ -139,11 +138,13 @@ while [ $COUNTER -lt $graphWidth ]; do
 done
 
 cpu_icon=$(echo "<svg xmlns='http://www.w3.org/2000/svg' width='$graph_svg_w' height='100' viewBox='0 0 $graph_svg_w 100'> <g transform='translate(0,100) scale(1,-1)'>
+$svg_string </g></svg>" | base64 -w 0)
+
+cpumem_icon=$(echo "<svg xmlns='http://www.w3.org/2000/svg' width='$graph_svg_w' height='100' viewBox='0 0 $graph_svg_w 100'> <g transform='translate(0,100) scale(1,-1)'>
 $svg_string
 <g transform='translate($mem_bar_pos,0)'><path fill='none' stroke='$chart_system_color' stroke-width='4' d='M0,0 0,$memPercent'/>
 <path fill='none' stroke='$chart_system_color' stroke-width='4' d='M7,0 7,$swapPercent'/>
 </g></g></svg>" | base64 -w 0)
-
 
 ################################################################
 #  03. Temperature
@@ -162,11 +163,11 @@ if [ "$showPercents" == "%off" ]; then
 fi
 
 
-echo "$IMAGE_CPU| size=10 font=monospace image=$cpu_icon imageHeight=$graph_h imageWidth=$graph_svg_w"
+echo "$IMAGE_CPU| size=10 font=monospace image=$cpumem_icon imageHeight=$graph_h imageWidth=$graph_svg_w"
 
 echo "---"
 
-echo "$top<span font='5'>------------------------------</span>\n<span color='#33BEFF' font='10.5'><b>$top_cpu%   <i>total</i></b></span>| font=monospace size=10 image=$cpu_icon imageHeight=36px imageWidth=36px"
+echo "$top<span font='5'>------------------------------</span>\n<span color='#33BEFF' font='9.5'><b>$top_cpu%   <i>total</i></b></span>| font=monospace size=9 image=$cpu_icon imageHeight=22px imageWidth=44px"
 
 echo "---"
 
@@ -174,7 +175,6 @@ echo "$top_tasks | iconName=utilities-system-monitor-symbolic font='DejaVu Sans'
 
 echo "---"
 
-#echo "<span color='$text_muted'>CPU </span>\t$CPU% | iconName=utilities-system-monitor"
 echo "<span color='$text_muted'>Mem</span>\t${mem_used%%.*} / ${mem_full%%.*} MiB | image=$mempie imageHeight=$icon_h"
 echo "<span color='$text_muted'>Swap</span>\t${swap_used%%.*} / ${swap_full%%.*} MiB | image=$swappie imageHeight=$icon_h"
 echo "<span color='$text_muted'>Temp</span>\t$temp C° | imageHeight=$icon_h image=PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMzUuNDY2NjcgMTM1LjQ2NjY3JyBoZWlnaHQ9JzY0JyB3aWR0aD0nNjQnPjxkZWZzPjxtYXJrZXIgb3JpZW50PSdhdXRvJyBpZD0nYicgb3ZlcmZsb3c9J3Zpc2libGUnPjxwYXRoIGQ9J00uOTggMGExIDEgMCAxIDEtMiAwIDEgMSAwIDAgMSAyIDB6JyBmaWxsPScjZjU1JyBmaWxsLXJ1bGU9J2V2ZW5vZGQnIHN0cm9rZT0nI2Y1NScgc3Ryb2tlLXdpZHRoPScuMjY3Jy8+PC9tYXJrZXI+PG1hcmtlciBvcmllbnQ9J2F1dG8nIGlkPSdhJyBvdmVyZmxvdz0ndmlzaWJsZSc+PHBhdGggZD0nTS45OCAwYTEgMSAwIDEgMS0yIDAgMSAxIDAgMCAxIDIgMHonIGZpbGw9JyNjY2MnIGZpbGwtcnVsZT0nZXZlbm9kZCcgc3Ryb2tlPScjY2NjJyBzdHJva2Utd2lkdGg9Jy4yNjcnLz48L21hcmtlcj48L2RlZnM+PGcgc3Ryb2tlLXdpZHRoPScxNC43NzknPjxwYXRoIGQ9J002Ni4zNzggMTEyLjU5NmMuMDEzLTMxLjcyNi4wMjctNS42My4wNC05NS4yMzUnIGZpbGw9JyNjY2MnIHN0cm9rZT0nI2NjYycgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJyBtYXJrZXItc3RhcnQ9J3VybCgjYSknIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC0xLjE4MiAtNC42ODcpIHNjYWxlKDEuMDM4MjQpJy8+PHBhdGggZD0nTTY2LjM3OCAxMTIuNTk2Yy4wMi0xNi4zMzguMDQtMi45LjA2LTQ5LjA0MycgZmlsbD0nI2Y1NScgc3Ryb2tlPScjZjU1JyBtYXJrZXItc3RhcnQ9J3VybCgjYiknIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC0xLjE4MiAtNC42ODcpIHNjYWxlKDEuMDM4MjQpJy8+PC9nPjwvc3ZnPgo=c@t"
@@ -219,7 +219,6 @@ disk_icon="drive-removable-media$symbolic"
 fi
     echo "---"
     echo "${cap[$i]}   <span color='$text_muted' font='10'>${name[$i]}</span> | iconName=$disk_icon  imageHeight=$icon_h length=20 bash='nautilus ${name[$i]}' terminal=false"
-    #echo "${used[$i]} / <span color='green'>${free[$i]}</span> (${capacity[$i]} %)| refresh=false  iconName=image-filter$symbolic"
     diskbar_green=$(echo ${capacity[$i]} | awk '{print 255 - $0 * 2.55 }' | awk '{ printf("%.0f\n", $1); }')
     diskbar_red=$(echo ${capacity[$i]} | awk '{print $0 * 2.55 }' | awk '{ printf("%.0f\n", $1); }')
     diskbar_color="rgba($diskbar_red,$diskbar_green,0,0.7)"
@@ -235,9 +234,7 @@ echo "Open System Monitor | iconName=utilities-system-monitor bash=gnome-system-
 #  6. Settings rendering
 ################################################################
 
-
 echo "---"
-#echo "Settings: | iconName=gnome-settings$symbolic"
 
 slon="PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyNCcgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDM3MCAzNzAnPjxwYXRoIGQ9J00yNzMgODhIOTdjLTUzLjUgMC05NyA0My42LTk3IDk3czQzLjUgOTcgOTcgOTdoMTc2YzUzLjUgMCA5Ny00My42IDk3LTk3cy00My41LTk3LTk3LTk3em0tMTE3LjYgOTdjMCAyOC44LTIzLjQgNTIuMi01Mi4yIDUyLjItMjguOCAwLTUyLjItMjMuNC01Mi4yLTUyLjIgMC0yOC44IDIzLjQtNTIuMiA1Mi4yLTUyLjIgMjguOCAwIDUyLjIgMjMuNCA1Mi4yIDUyLjJ6JyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgzNzAsIDApIHNjYWxlKC0xLCAxKScgZmlsbD0nZ3JlZW4nIC8+PC9zdmc+Cg=="
 sloff="PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyNCcgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDM3MCAzNzAnPjxwYXRoIGQ9J00yNzMgODhIOTdjLTUzLjUgMC05NyA0My42LTk3IDk3czQzLjUgOTcgOTcgOTdoMTc2YzUzLjUgMCA5Ny00My42IDk3LTk3cy00My41LTk3LTk3LTk3em0tMTE3LjYgOTdjMCAyOC44LTIzLjQgNTIuMi01Mi4yIDUyLjItMjguOCAwLTUyLjItMjMuNC01Mi4yLTUyLjIgMC0yOC44IDIzLjQtNTIuMiA1Mi4yLTUyLjIgMjguOCAwIDUyLjIgMjMuNCA1Mi4yIDUyLjJ6JyBmaWxsPSdyZWQnIC8+PC9zdmc+Cg=="
