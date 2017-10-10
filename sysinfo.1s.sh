@@ -36,7 +36,7 @@ graph_h=$(expr 14 \* $scale)
 graph_svg_w=$(expr $graphWidth + 14)
 mem_bar_pos=$(expr $graphWidth + 5)
 diskbar_h=$(expr 18 \* $scale)
-diskbar_w=$(expr 120 \* $scale)
+#diskbar_w=$(expr 120 \* $scale)
 px='px'
 
 ################################################################
@@ -95,7 +95,7 @@ PREVIOUS=$(tail -$graphWidth "${HISTORY_FILE}")
 PREV=$(tail -n 1 "${HISTORY_FILE}")
 echo "$PREVIOUS" > "${HISTORY_FILE}"
 
-if [$PREV == '']; then
+if [ "$PREV" == '' ]; then
   PREV="0 0 0 0"
 fi
 
