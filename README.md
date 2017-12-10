@@ -16,7 +16,7 @@ You may need to open the script and replace `$7 / 4` to `$n / 4` where n is the 
 
 <h2>Screenshot</h2>
 
-![](https://raw.githubusercontent.com/WhiteheadV/sysinfo/master/screen.jpg)
+![](https://raw.githubusercontent.com/WhiteheadV/sysinfo/master/screen.png)
 
 <h2>License</h2>
 GNU GPL v3.0 - https://www.gnu.org/licenses/gpl-3.0.en.html
