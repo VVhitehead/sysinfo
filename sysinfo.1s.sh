@@ -82,8 +82,8 @@ swappie=$(echo "<svg xmlns='http://www.w3.org/2000/svg' width='$icon_h' height='
 #  02. CPU graph calculation
 ################################################################
 
-# XXX must be equal to number of CPU cores:          '...{ printf("%-4s %-s\n", $7 / XXX, $NF); }...'
-top=$(top -o "%CPU" -bn 1 | head -n 19 | tail -n 5 | awk '{ printf("%-4s %-s\n", $7 / 4, $NF); }' | awk 1 ORS="\\\n")
+# XXX must be equal to number of CPU cores:          '...{ printf("%-4s %-s\n", $9 / XXX, $NF); }...'
+top=$(top -o "%CPU" -bn 1 | head -n 12 | tail -n 5 | awk '{ printf("%-4s %-s\n", $9 / 4, $NF); }' | awk 1 ORS="\\\n") # Adjust to changes in top
 top_cpu=$(echo $top | sed 's/\\n/ /g' | awk '{ print $1 + $3 + $5 + $7 +$9}')
 top_tasks=$(top -bn 1 | head -n 2 | tail -n+2 | awk '{ gsub(",", "") } \
  { printf("<b>%s</b> %d <i>%s</i> %d <i>%s</i> / %d <i>%s</i> %d <i>%s</i>\
