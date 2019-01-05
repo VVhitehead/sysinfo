@@ -4,7 +4,7 @@
 # based on some findings on the internet
 # based on Ganesh V BitBar script (https://github.com/ganeshv/mtop)
 # and Leo-G script (https://github.com/Leo-G/DevopsWiki/wiki/How-Linux-CPU-Usage-Time-and-Percentage-is-calculated)
-# author: fadeouter (https://github.com/fadeouter/)
+# original author: fadeouter (https://github.com/fadeouter/)
 
 
 # IMPORTANT! Go to line 86 and set your number of CPU cores
@@ -231,7 +231,7 @@ fi
     diskbar_green=$(echo ${capacity[$i]} | awk '{print 255 - $0 * 2.55 }' | awk '{ printf("%.0f\n", $1); }')
     diskbar_red=$(echo ${capacity[$i]} | awk '{print $0 * 2.55 }' | awk '{ printf("%.0f\n", $1); }')
     diskbar_color="rgba($diskbar_red,$diskbar_green,0,0.7)"
-    diskbar=$(echo "<svg xmlns='http://www.w3.org/2000/svg' width='130$px' height='$diskbar_h$px' viewBox='0 0 110 11'> <rect width='100' height='2' x='0' y='$height' fill='$diskbar_bg_color' rx='1px'/> <rect width='${capacity[$i]}' height='2' x='0' y='$height' fill='$diskbar_color' rx='1px'/> <text x='0' y='7' font-size='$svg_font_size' font-family='$svg_font_family'><tspan fill='$diskbar_font'>${used[$i]} / <tspan fill='$diskbar_font_highlighted'>${free[$i]}</tspan> (${capacity[$i]} %)</tspan></text> </svg>" | base64 -w 0)
+    diskbar=$(echo "<svg xmlns='http://www.w3.org/2000/svg' width='180$px' height='$diskbar_h$px' viewBox='0 0 110 11'> <rect width='100' height='2' x='0' y='$height' fill='$diskbar_bg_color' rx='1px'/> <rect width='${capacity[$i]}' height='2' x='0' y='$height' fill='$diskbar_color' rx='1px'/> <text x='0' y='7' font-size='$svg_font_size' font-family='$svg_font_family'><tspan fill='$diskbar_font'>${used[$i]} / <tspan fill='$diskbar_font_highlighted'>${free[$i]}</tspan> (${capacity[$i]} %)</tspan></text> </svg>" | base64 -w 0)
     echo "|image=$diskbar iconName=drive-removable-media-symbolic$symbolic imageHeight=$diskbar_h"
 done
 
