@@ -137,10 +137,10 @@ while [ $COUNTER -lt $graphWidth ]; do
     let COUNTER=COUNTER+1
 done
 
-cpu_icon=$(echo "<svg xmlns='http://www.w3.org/2000/svg' width='$graph_svg_w' height='100' viewBox='0 0 $graph_svg_w 100'> <g transform='translate(0,100) scale(1,-1)'>
+cpu_icon=$(echo "<svg xmlns='http://www.w3.org/2000/svg' width='$graph_svg_w' height='150' viewBox='0 0 $graph_svg_w 100'> <g transform='translate(0,100) scale(1,-1)'>
 $svg_string </g></svg>" | base64 -w 0)
 
-cpumem_icon=$(echo "<svg xmlns='http://www.w3.org/2000/svg' width='$graph_svg_w' height='100' viewBox='0 0 $graph_svg_w 100'> <g transform='translate(0,100) scale(1,-1)'>
+cpumem_icon=$(echo "<svg xmlns='http://www.w3.org/2000/svg' width='$graph_svg_w' height='150' viewBox='0 0 $graph_svg_w 100'> <g transform='translate(0,100) scale(1,-1)'>
 $svg_string
 <g transform='translate($mem_bar_pos,0)'><path fill='none' stroke='$chart_system_color' stroke-width='4' d='M0,0 0,$memPercent'/>
 <path fill='none' stroke='$chart_system_color' stroke-width='4' d='M7,0 7,$swapPercent'/>
