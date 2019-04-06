@@ -16,7 +16,7 @@ svg_font_family="TrueType"  # set as GNOME Shell theme font
 symbolic=""
 #symbolic="-symbolic"			# uncomment to use monocolor icons
 
-### DARK THEME
+### DARK THEME necesary
 
 chart_system_color="rgba(255,255,255,0.8)"		    # CPU chart main color
 chart_user_color="#33BEFF"	      # CPU chart main color
@@ -174,7 +174,7 @@ echo "$IMAGE_CPU| size=10 font=monospace image=$cpumem_icon imageHeight=$graph_h
 
 echo "---"
 
-echo "$top<span font='5'>------------------------------</span>\n<span color='#33BEFF' font='9.5'><b>$top_cpu%   <i>total</i></b></span>| font=monospace size=9 image=$cpu_icon imageHeight=22px imageWidth=44px"
+echo "$top<span font='5'>------------------------------</span>\n<span color='#33BEFF' font='9.5'><b>$top_cpu%   <i>total</i></b></span>| font=monospace size=9 image=$cpu_icon imageHeight=25px imageWidth=60px"
 
 echo "---"
 
@@ -182,7 +182,7 @@ echo "$top_tasks | iconName=utilities-system-monitor-symbolic font='DejaVu Sans'
 
 echo "---"
 
-echo "<span color='$text_muted'>Load</span>\t$load | imageHeight=$icon_h image=iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAABONJREFUSIm9VGtQVGUYfr5zds/uwi57FjG5BmjCqoDAguKKKThBkUMXdappJjWotHFGp6kms6GpH1aao6NNaBdkJrXSMcOxQWcQw4BZ87IIoiteuInLXvCw99vxnH5wGUAmqZl6fn7zzXN5v+95gf8YZAp3GAUtycyIZLPYCFW0SFNwul39rbb7Ld4QbwQQ/FcCBGBzYhM358UnlL2njowjfo786uYghEuxOmkayHS1uMNkvdd8p7fqfEfXLlEENxmPZLLDRKWmeE/209+nCmLsui4D8bsDkBMvAj4nBIGB4KbxgPaT8513435co/+ow68vW7+/trzTwtVO5KImHqjV6rWVC1efyHRI4hScn+TSSpwJeIfDEoAQECmFM1YPcuMioJQGiO4xElu16bkalmXLJ/LR45yroooP5K89vM1Ux6QRNaIoKWIoCvu8/aAAnA0G0COIECQUjvY5sXFJEqIiFeiwurD1mJH++s2iZ5qud1/i3P6bDwkQgK0u2ng63a3UpNFqVHAXoKVZ1AVtqA8N4vdQEH2CiL7gAzTYvbAHeCjkEqgUDLacMGFb6RxkzJDRurTUwoNnr1QB8I8TyE2c+0F54tIVkoBIougwaKVqrB/4A5d514iBcRABtPS5UNPaj92r0jE/Xg1ABKtSqAxdDr7XytWPfQMmb1ZmWdnlA2SXpRGdCKAhaEEI4iP/MS+IqO+w4c6AB5+f7sBLe+uxKG3W6wCYUWMKqWxB+4YjBn8fR85ajThmbobJfRcCxEfQD4EiwNwYFV5ZmICieTMg18SISeVf5Xt8wWYKANLiU7J9MpEIkWEonKVHaUL+lMkBQBCBlbkJWJHzOKRhcgiUQHQp8dnAcA8iNGxMzd0m+F1eEBG4cL99yuQjONVuhW944kzYINQsGzsqwEtF4lEK8FFDvv0DU3c/ggcUhQA91FtCURAIIaMCTo/Lkr/sSfiDQQgSgFxS4FrXjX8kULAgGaWLZ4NABC0Nx/GGtv5RAdPtjhY/S0SHnyetxhY0/tkMQghEcWpJCCE42XQbjJzBUl0SFIxcNF7vaQGGe8DzvJ0Jk5XXHP1FSWiC4hefBSNj0H2rc0oCy0qy8dQqPRpbelB97AIsg7ztnKHtfQChkaLxBJjxzqdb9HOz0olKHQG5QoGLjecfmYKiKZS+WoCE5GjMy0zG4uU5OHSobr/5nvU3YMyyazVe2Wk3W2wURcHc24efvzuIDVs2YVnJchDq4boRQrCkZBHerliDn745hd4uO0AxsN5z2Y0X278cuTd22Xnar7R163JyXvihsop6+a3XkPhEMtgoDXpudaJ4VQn4UAia6RoUPl8Al8OFopUFSJgZi+TZ8ThceRKp2hT+i4/3veEYdBkmE4DL4bxuaGhyb9767vLYpHgKBKirqcU8XTryCvXw+XyYHj0N+cV6SKU0rl68hjlZqVBHRkCrTeErNm//0GK2fTtuhBOSixzH7d7xyWdrrL1mGxGBm1dvIDMve+xwQAhBxsIM3L7WBfASWLsH7dsr9q7j7nM7gfErYFyCERGnw9l2+kTtkU7TLWmGbn7y/NysMAlNkf5eMyQSGjNnz4RcJhPdA66B4wdrqqsrD611cM5zE8mH7Pw9CIBIpUqZp03XZoeHK6MJQDxed7+pzXTZ5XQbAAxMRvy/4S8rG+8QrnGxdAAAAABJRU5ErkJggg=="
+echo "<span color='$text_muted'>Load</span>\t$load | iconName=dialog-error-symbolic"
 
 echo "<span color='$text_muted'>Mem</span>\t${mem_used%%.*} / ${mem_full%%.*} MiB | image=$mempie imageHeight=$icon_h"
 echo "<span color='$text_muted'>Swap</span>\t${swap_used%%.*} / ${swap_full%%.*} MiB | image=$swappie imageHeight=$icon_h"
